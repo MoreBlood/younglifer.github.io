@@ -1,0 +1,59 @@
+<!doctype html>
+<html ng-app="timetableapp">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <!-- build:css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- endbuild -->
+    <link rel="stylesheet" href="css/vendor/normalize.css">
+    <link rel="stylesheet" href="css/vendor/angular-datepicker.css">
+    <link rel="stylesheet" href="css/vendor/angular-colorpicker-dr.css">
+    <link rel="stylesheet" href="css/vendor/sweetalert.css">
+
+    <script src="js/vendor/angular.min.js"></script>
+
+    <!-- build:js -->
+    <script src="js/main.js"></script>
+    <script src="js/modalwindow.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/lection.js"></script>
+    <script src="js/lectionabout.js"></script>
+    <script src="js/edit_lection.js"></script>
+    <script src="js/edit_school.js"></script>
+    <script src="js/edit_place.js"></script>
+    <script src="js/404.js"></script>
+    <!-- endbuild -->
+
+    <script src="js/vendor/taffy-min.js"></script>
+    <script src="js/vendor/angular-sanitize.min.js"></script>
+    <script src="js/vendor/angular-ui-router.min.js"></script>
+    <script src="js/vendor/angular-datepicker.js"></script>
+    <script src="js/vendor/angular-colorpicker-dr.js"></script>
+    <script src="js/vendor/angular-locale_ru-ru.js"></script>
+    <script src="js/vendor/date.js"></script>
+    <script src="js/vendor/sweet-alert.min.js"></script>
+    <script src="js/vendor/SweetAlert.min.js"></script>
+
+    <title>Yandex</title>
+    <meta charset="utf-8">
+</head>
+<body ng-controller="timeTableController">
+
+<route-loading-indicator></route-loading-indicator>
+<navbar></navbar>
+
+<div class="main-content">
+    <ui-view autoscroll='false'></ui-view>
+</div>
+<div class="footer">
+
+    <div class="footer-about feedback" ng-click="ClearCache()">Очистить кэш</div>
+    <div class="footer-about copyright">© 2017 ООО <a href="https://yandex.ru">«Яндекс»</a></div>
+</div>
+
+<popup></popup>
+<script src="js/vendor/jquery.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<p class="text-h1" ng-hide="saveBtn" xmlns="http://www.w3.org/1999/html">Редактирование лекции</p>
+<p class="text-h1" ng-show="saveBtn">Создание лекции </p>
+
+<!--textarea type="" style="width: 350px; height: 500px;   clear: none; float: right;"  class="input nr-border" placeholder="Текст описания" ng-bind="cloneOfA ? cloneOfA : Data  | json"></textarea><br-->
+<form name="myForm" ng-submit="AddLection()">
+<div class="input-name-holder" style="clear: none">
+    <input type="text" style="width: 350px" name="lection"  class="input nr-border" ng-model="Data.lection_name" placeholder="Лекция по разработке" required>
+    <div class="input name"><p class="name-p">Название лекции</p></div>
+</div>
+
+<div class="input-name-holder">
+    <datepicker date-format="MM-dd-yyyy" datepicker-mobile="true">
+        <input type="text" style="width: 100px" name="date" class="input nr-border" pattern="^(0[1-9]|1[012])-([123]0|[012][1-9]|31)-(19[0-9]{2}|2[0-9]{3})" ng-model="Data.date" placeholder="12-26-2016"   required>
+
+    </datepicker>
+    <div class="input name"><p class="name-p">Дата</p></div>
+
+</div>
+<div class="input-name-holder">
+    <select name="repeatSelect" class="input nr-border" ng-model="selectedOptionPlace"  ng-options="option.name for option in places track by option.id">
+    </select>
+    <div class="input name"><p class="name-p">Аудитория</p></div>
+</div>
+
+<div class="input-name-holder">
+    <select name="repeatSelect" class="input nr-border" ng-model="selectedOptionId" ng-options="option.name for option in lectors track by option.id">
+    </select>
+    <div class="input name"><p class="name-p">Преподаватель</p></div>
+</div>
+
+<div class="input-name-holder" id="list-schools">
+    <div class="input name header" ><p class="name-p">Школы</p></div>
+    <div class="list-check"  ng-repeat="(key, value) in schools">
+        <div class="squaredCheckbox">
+            <input type="checkbox" value="None" id="squaredCheckbox{{key}}" ng-checked="checks[$index]" ng-model="checks[$index]" ng-click="AddToSchoolList(value.id)"  name="check"  />
+            <label for="squaredCheckbox{{key}}"></label>
+        </div><label for="squaredCheckbox{{key}}"><span ng-bind="value.name"></span></label>
+    </div>
+</div>
+
+<div class="input-name-holder" id="about_text">
+    <div class="input name header"><p class="name-p">Описание</p></div>
+    <textarea type="" style="width: 350px;    clear: both;" name="about"  class="input nr-border" placeholder="Текст описания" ng-model="Data.about"required></textarea>
+</div>
+
+<hr>
+<div class="input-name-holder" style="clear: none">
+    <input type="text" style="width: 350px"  class="input nr-border" pattern="https?:\/\/(?:[^\.]+\.)?youtube\.com\/embed\/([^&]+)" placeholder="https://www.youtube.com/embed/Y5450Ns5L4M" ng-model="Data.video_link">
+    <div class="input name"><p class="name-p">YouTube (embed)</p></div>
+</div>
+<div class="input-name-holder">
+</div><div class="list-check">
+    <div class="squaredCheckbox">
+        <input type="checkbox" value="None" id="passed" ng-model="Data.passed" name="check" ng-checked = "Data.passed" />
+        <label for="passed"></label>
+    </div><label for="passed">Лекция пройдена</label>
+</div>
+</div>
+    <input type="submit"  class="replay-button ab-lec save" value="СОХРАНИТЬ">
+</form>
+

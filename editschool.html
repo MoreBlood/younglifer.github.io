@@ -1,0 +1,34 @@
+<p class="text-h1" ng-hide="saveBtn">Редактирование школы </p>
+<p class="text-h1" ng-show="saveBtn">Создание школы </p>
+<form name="myForm" ng-submit="AddSchool()">
+<div ng-hide="schools.id === 1" class="input-name-holder" style="clear: none">
+    <input type="text" style="width: 350px"  class="input nr-border" name="name" placeholder="Школа перламутровых единорогов" ng-model="schools.name" required>
+    <div class="input name"><p class="name-p">Название школы</p></div>
+</div>
+
+<div class="input-name-holder">
+    <input type="text" style="width: 60px"  name="short" class="input nr-border" placeholder="ШПЕ" ng-model="schools.short"  required>
+    <div class="input name"><p class="name-p">Короткое имя</p></div>
+</div>
+<div ng-hide="schools.id === 1" class="input-name-holder">
+    <input  type="number" style="width: 45px" name="count"  class="input nr-border" placeholder="23" ng-model="schools.students_count" pattern="^(([0-9])+)$"  required>
+    <div class="input name"><p class="name-p">Кол-во студентов</p></div>
+</div>
+
+<div class="input-name-holder">
+    <input color-picker ng-model="schools.color" name="hex" type="text" style="width: 100px"  class="input nr-border" pattern="[#]([\dA-F]{6}|[\dA-F]{3})" placeholder="#AAAAAA" value="{{schools.color}}" required>
+    <div class="input name"><p class="name-p">Цвет</p></div>
+</div>
+
+<div class="input-name-holder">
+    <input type="text" style="width: 75px" name="url"  class="input nr-border" placeholder="edinorog"  ng-model="schools.url"required>
+    <div class="input name"><p class="name-p">URL</p></div>
+</div>
+
+
+<div class="input-name-holder" id="about_text">
+    <div class="input name header"><p class="name-p">Описание</p></div>
+    <textarea type="" style="width: 350px;    clear: both;"  class="input nr-border" placeholder="Текст описания" ng-model ='schools.description'></textarea>
+</div>
+    <input type="submit" class="replay-button ab-lec save" value="СОХРАНИТЬ">
+</form>

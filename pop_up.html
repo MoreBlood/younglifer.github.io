@@ -1,0 +1,13 @@
+
+    <div class="pop-up" ng-style="popUpStyle" ng-cloak>
+
+        <div class="pop-up-photo">
+            <div class="photo">
+                <img ng-src="img/lectors/{{data.id}}.jpeg">
+            </div>
+            <p class="td-lec place about">{{data.workplace}}</p>
+            <button ng-click="$root.go('lector_lections', { 'lector' : data.id}); popUpStyle = {'visibility' : 'hidden'}" class="replay-button about pop">ВСЕ ЛЕКЦИИ</button>
+        </div>
+        <div class="text-about-lector">
+            <p class="td-lec lector about" >{{data.about}}</p></div>
+    </div>

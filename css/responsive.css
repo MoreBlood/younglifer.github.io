@@ -1,0 +1,516 @@
+@charset "utf-8";
+@media screen and (max-width: 1560px) {
+    .main-content {
+        width: 1000px;
+    }
+}
+
+@media screen and (max-width: 1234px) {
+    .main-content {
+        width: 90%;
+    }
+
+    .nav-bar {
+        height: 60px;
+    }
+
+    td.td-lec.schools {
+        width: 23%;
+    }
+}
+
+@media screen and (max-width: 948px) {
+    .play-icon.btn.lec {
+        margin-right: -3px;
+    }
+
+    .main-content {
+        width: 90%;
+        margin-top: 100px;
+    }
+
+    span.button-text {
+        display: none;
+    }
+
+    p.text-h2 {
+        font-size: 23px;
+    }
+
+    p.text-h1 {
+        font-size: 25px;
+    }
+
+    p.text-h1.notfound nfound {
+        font-size: 170px;
+    }
+
+    p.text-h6 {
+        font-size: 17px;
+        line-height: 18px;
+    }
+
+    td.td-lec.lection-name {
+        font-size: 13px;
+    }
+
+    .td-lec.place {
+        font-size: 13px;
+        width: 15%;
+    }
+
+    button.replay-button {
+    }
+
+    .nav-bar {
+        height: 55px;
+    }
+
+    .nav-el {
+        width: 142px;
+    }
+
+    td.td-lec.lector {
+        font-size: 13px;
+    }
+
+    td.td-lec.schools {
+        width: 25%;
+    }
+
+    p.td-lec.lector.about.ab-lec {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .input.nr-border {
+        font-size: 12px;
+        padding: 6px 6px 6px 10px;
+        height: 17px;
+    }
+
+    .input-name-holder {
+        margin-bottom: 8px;
+    }
+
+    .list-check {
+        margin-top: 10px;
+    }
+
+    p.name-p {
+        font-size: 12px;
+        white-space: pre;
+    }
+
+    .list-check {
+        font-size: 12px;
+    }
+
+    .squaredCheckbox label {
+        width: 14px;
+        height: 14px;
+    }
+
+    .squaredCheckbox label:after {
+        background-size: 75%;
+        top: -4px;
+        left: 1px;
+    }
+
+    .squaredCheckbox {
+        margin-right: 15px;
+        margin-left: 12px;
+    }
+
+    div.icon,
+    .edit-icon.article {
+        font-size: 11px;
+        background-size: 17px !important;
+        margin-right: 7px;
+        padding-left: 25px;
+    }
+
+    div.play-icon {
+        display: inline-block;
+    }
+
+    .main-content {
+        width: 100%;
+        margin-top: 80px;
+        margin-bottom: 140px;
+    }
+
+    .nav-el.school {
+        clear: both;
+        float: inherit;
+        height: 32px;
+        padding-top: 5px;
+        text-align: center;
+    }
+
+    .nav-el {
+        width: 33%;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-el.mobile-des {
+        width: 34%;
+        height: 50px;
+        padding-right: 120px;
+    }
+
+    p.text-h6 {
+        font-size: 12px;
+        line-height: 13px;
+    }
+
+    navbar {
+        position: absolute;
+    }
+
+    p.text-h1 {
+        font-size: 19px;
+    }
+
+    span.text-h4 {
+        font-size: 16px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .td-lec.replay {
+        display: none;
+    }
+
+    button.replay-button.lec {
+        display: none;
+    }
+
+    p.text-h2 {
+        font-size: 17px;
+        margin: 0;
+        float: inherit;
+    }
+
+    .mobilization-logo {
+        height: 25px;
+        padding-top: 8px;
+        padding-left: 15px;
+    }
+
+    p.text-yandex {
+        float: left;
+        margin-top: 3px;
+        margin-left: 7px;
+    }
+
+    p.text-h1.notfound nfound {
+        font-size: 130px
+    }
+
+    td.td-lec.lection-name {
+        font-size: 13px;
+        width: 100%;
+        display: block;
+        padding-left: 0;
+        margin-bottom: 3px;
+        margin-left: 5px;
+    }
+
+    td.td-lec.place {
+        font-size: 13px;
+        display: block;
+        float: left;
+        margin-left: 11px;
+        width: 25%;
+        white-space: pre;
+    }
+
+    span.school-min {
+        font-size: 8px;
+        padding: 4px 2px 4px 2px;
+    }
+
+    span.school-min.interface {
+        display: inline;
+    }
+
+    button.replay-button {
+        font-size: 10px;
+    }
+
+    td.td-lec.date {
+        font-size: 17px;
+        vertical-align: top;
+    }
+
+    .month-separator {
+        margin-top: 35px;
+    }
+
+    .nav-bar {
+        height: 45px;
+    }
+
+    .nav-el {
+        background-size: 60px !important;
+    }
+
+    td.td-lec.lector {
+        font-size: 13px;
+        display: inline;
+        width: inherit;
+        float: left;
+        margin-left: 5px;
+    }
+
+    .nav-el:hover {
+        border-bottom: 2px solid rgba(255, 255, 255, 0.36);
+    }
+
+    .footer {
+        height: 60px;
+    }
+
+    .footer-about {
+        margin-left: 15px;
+        font-size: 12px;
+    }
+
+    .footer-about.copyright {
+        margin-right: 15px;
+    }
+
+    td.td-lec.schools {
+        display: block;
+        width: inherit;
+        float: right;
+        margin-top: -2px;
+    }
+
+    div.date-rounded div.date-rounded {
+        width: 35px;
+        height: 35px;
+    }
+
+    .pop-up-photo.ab-lec {
+    }
+
+    p.td-lec.lector.about.ab-lec {
+        font-size: 15px;
+    }
+
+    .nav-el.selected {
+        border-width: 0 0 2px 0;
+    }
+
+    p.text-h1.ab-lec {
+        padding-left: 0;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .main-content {
+        width: 100%;
+        margin-top: 70px;
+        margin-bottom: 110px;
+    }
+
+    .youtube-wrap::before {
+        text-align: center;
+    }
+
+    .td-lec.place {
+        font-size: 12px !important;
+    }
+
+    .nav-el {
+    }
+
+    .nav-el.mobile-des {
+        padding-right: 10px;
+    }
+
+    .footer-about {
+        font-size: 11px;
+    }
+
+    .pop-up {
+        width: calc(100% - 30px);
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .text-about-lector {
+        float: left;
+    }
+
+    .pop-up-photo {
+        width: 75px;
+    }
+
+    p.td-lec.lector.about {
+        font-size: 12px;
+    }
+
+    .photo {
+        width: 68px;
+        height: 68px;
+    }
+
+    p.td-lec.place.about {
+        margin-top: 5px;
+    }
+
+    p.td-lec.place.about.ab-lec {
+        width: 100%;
+        text-align: center;
+        margin-top: 7px;
+        margin-bottom: 7px;
+        font-size: 14px;
+    }
+
+    p.td-lec.place.about.ab-lec.work {
+        font-size: 13px;
+    }
+
+    .photo.ab-lec {
+        margin: 0 auto;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        border-bottom: 2px solid rgb(255, 0, 0);
+        box-sizing: border-box;
+    }
+
+    .pop-up-photo.ab-lec {
+        float: initial;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    p.td-lec.lector.about.ab-lec {
+        font-size: 14px;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .text-about-lector.ab-lec {
+        margin-left: 15px;
+        margin-top: 15px;
+    }
+
+    button.replay-button.about {
+        font-size: 8px;
+        padding: 4px 5px 4px 6px !important;
+        margin-left: 0;
+        float: inherit;
+    }
+
+    button.replay-button.ab-lec {
+        margin-top: 0;
+        font-size: 10px;
+    }
+
+    p.date.ab-lec.ng-binding {
+        font-size: 12px;
+        padding-top: 3px;
+        text-align: center;
+    }
+
+    p.text-h1.ab-lec {
+        text-align: center;
+    }
+}
+
+@media all and (max-width: 319px) {
+    lection,
+    editlection,
+    editschool,
+    editplace {
+        margin: 10px;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    p.text-h6 {
+        font-size: 10px;
+        line-height: 11px;
+    }
+
+    .td-lec.place {
+    }
+
+    .nav-el {
+        background-size: 45px !important;
+    }
+
+    .nav-el.mobile-des {
+        height: 40px;
+    }
+
+    .text-about-lector {
+        padding: 5px;
+        width: calc(100% - 97px);
+    }
+
+    .pop-up-photo {
+        padding: 5px;
+    }
+
+    p.td-lec.lector.about {
+        font-size: 10px;
+    }
+
+    .photo {
+        margin-left: 0;
+    }
+
+    .pop-up {
+        margin-left: 2px;
+        margin-right: 2px;
+        width: calc(100% - 6px);
+    }
+
+    td.td-lec.schools {
+        float: left;
+        clear: both;
+        margin-left: 5px;
+        margin-top: 2px;
+    }
+
+    p.td-lec.place.about.ab-lec {
+        font-size: 13px;
+    }
+
+    p.td-lec.place.about.ab-lec.work {
+        font-size: 12px;
+    }
+
+    .photo.ab-lec {
+        height: 80px;
+        width: 80px;
+    }
+
+    p.td-lec.lector.about.ab-lec {
+        font-size: 12px;
+    }
+
+    button.replay-button.ab-lec {
+        font-size: 9px;
+    }
+
+    p.date.ab-lec.ng-binding {
+        font-size: 11px;
+    }
+
+    p.text-h1.ab-lec {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+}

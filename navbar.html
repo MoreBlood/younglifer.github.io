@@ -1,0 +1,9 @@
+<div class="nav-bar">
+    <div class="mobilization-logo" ng-click="$root.go('school_lections', { 'name' : 'all'})">
+        <p class="text-h2 white">Мобилизация</p>
+        <p class="text-yandex">Яндекс</p>
+    </div>
+    <div ng-repeat="value in schools" ng-style="{background : value.color}" class="nav-el" ng-click="$root.go('school_lections', { 'name' : value.url })" ng-class="current === value.url ? 'selected' : ''">
+        <p class="text-h6" >{{value.name}}</p>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<p class="text-h1" ng-hide="saveBtn">Редактирование аудитории </p>
+<p class="text-h1" ng-show="saveBtn">Создание аудитории </p>
+<form name="myForm" ng-submit="AddPlace()">
+<div class="input-name-holder" style="clear: none">
+    <input type="text" style="width: 350px"  class="input nr-border" placeholder="Яндекс 303" ng-model="places.name" required>
+    <div class="input name"><p class="name-p">Название аудитории</p></div>
+</div>
+
+<div class="input-name-holder">
+    <input type="number" style="width: 60px"  class="input nr-border" placeholder="60" ng-model="places.max" required>
+    <div class="input name"><p class="name-p">Вместимость аудитории</p></div>
+</div>
+
+<div class="input-name-holder" id="about_text">
+    <div class="input name header"><p class="name-p">Описание</p></div>
+    <textarea type="" style="width: 350px;    clear: both;"  class="input nr-border" placeholder="Текст описания" ng-model="places.description"></textarea>
+</div>
+    <input type="submit"  class="replay-button ab-lec save" value="СОХРАНИТЬ">
+</form>
