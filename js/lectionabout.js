@@ -1,4 +1,4 @@
-function LectionAboutController($rootScope, $scope, Data, $state, $stateParams, $sce) {
+function LectionAboutController($rootScope, $scope, Data, $state, $stateParams, $sce, $document) {
     Data.getPromise().then(function () {
         var schools = {};
         var lector = {};
@@ -11,7 +11,7 @@ function LectionAboutController($rootScope, $scope, Data, $state, $stateParams, 
             $state.go('404');
             return;
         }
-
+        $document[0].title = $scope.Data.lection_name;
         $scope.ytUrl = $sce.trustAsResourceUrl($scope.Data.video_link);
 
         $scope.dateParsed = Date.parseExact($scope.Data.date, "MM-dd-yyyy");

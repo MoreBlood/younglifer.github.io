@@ -1,10 +1,11 @@
-function EditSchoolController($scope, $state, Data, $stateParams, $sce) {
+function EditSchoolController($scope, $state, Data, $stateParams, $document) {
 
     Data.getPromise().then(function () {
-            if ($state.current.name === 'edit_school') {
+        if ($state.current.name === 'edit_school') {
 
             $scope.schools = angular.copy(Data.getSchools({'url': $stateParams.name})[0]);
             $scope.colorValueInput = $scope.schools.color;
+            $document[0].title = 'Редактирование школы';
         }
 
         if (!$stateParams.name || $state.current.name === 'create_school') {
@@ -14,6 +15,8 @@ function EditSchoolController($scope, $state, Data, $stateParams, $sce) {
                 if (i[0] === "_") delete $scope.schools[i];
             }
             $scope.saveBtn = true;
+
+            $document[0].title = 'Создание школы';
         }
 
         $scope.AddSchool = function () {
@@ -26,7 +29,7 @@ function EditSchoolController($scope, $state, Data, $stateParams, $sce) {
                 Data.put.school($scope.schools.id, angular.copy($scope.schools));
             }
 
-            $state.go('school_lections', {'name' : $scope.schools.url}, {reload: true});
+            $state.go('school_lections', {'name': $scope.schools.url}, {reload: true});
         };
 
 

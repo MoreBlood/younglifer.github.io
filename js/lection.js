@@ -1,4 +1,4 @@
-function LectionController($rootScope, $scope, $state, Data, $stateParams, $filter) {
+function LectionController($rootScope, $scope, $state, Data, $stateParams, $filter, $document) {
     $scope.current = $stateParams.name;
     Data.getPromise().then(function () {
         var params = {};
@@ -7,6 +7,7 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
         if ($stateParams.name) {
             if (school) {
                 $scope.schoolName = school.name;
+                $document[0].title = school.name;
                 $scope.countOfStudents = school.students_count;
             }
             else {
@@ -27,12 +28,15 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
         if (month) {
             if (month.length === 1) month = "0" + month;
             params['date'] = {regex: new RegExp('^' + month + '........$')};
-            $scope.month = new Date(2007, month, 1);
+            $scope.month = new Date(2016, month - 1, 01 );
+            $document[0].title = $filter('capitalize')($filter('date')($scope.month, 'MMMM'));
         }
         if (date && month) {
             if (date.length === 1) date = "0" + date;
             params['date'] = {regex: new RegExp('^' + month + '.' + date + '.....$')};
-            $scope.date = new Date(2007, 1, date);
+            $scope.date = new Date(2016, month - 1, date);
+
+            $document[0].title = $filter('capitalize')($filter('date')($scope.date, 'MMMM d'));
         }
         if (lector) {
             params['lector_id'] = parseInt(lector, 10);
@@ -41,6 +45,8 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
                 return;
             }
             $scope.lector = params['lector_id'];
+
+            $document[0].title = $scope.GetLector($scope.lector);
         }
         if (place) {
             params['place_id'] = parseInt(place, 10);
@@ -49,6 +55,8 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
                 return;
             }
             $scope.place = params['place_id'];
+
+            $document[0].title = $scope.GetPlace($scope.place);
         }
 
         $scope.Data = [];

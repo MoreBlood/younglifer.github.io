@@ -65,24 +65,30 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
 
 
                     if (localStorage.length !== 4) {//так себе проверка на локальное храгилище
+                        var benchC = 'Creating Local Storage';
+                        console.time(benchC);
                         localStorage.clear();
-                        console.log('creating Local Storage');
 
                         lectionList = TAFFY(data.lections).store('lectionLS');
                         schoolsList = TAFFY(data.schools).store('schoolLS');
                         lectorsList = TAFFY(data.lectors).store('lectorLS');
                         placesList = TAFFY(data.places).store('placenLS');
 
+                        console.timeEnd(benchC);
+
                         TotalCount(); //подсчет всех студентов
 
                     }
                     else {
-                        console.log('loading from Local Storage');
+                        var bench = 'Loading from Local Storage';
+                        console.time(bench);
 
                         lectionList = TAFFY().store('lectionLS');
                         schoolsList = TAFFY().store('schoolLS');
                         lectorsList = TAFFY().store('lectorLS');
                         placesList = TAFFY().store('placenLS');
+
+                        console.timeEnd(bench);
                     }
 
                     signal.resolve();
@@ -112,53 +118,41 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             if (!paramsObj) paramsObj = "";
             return placesList(paramsObj).order("name").get();
         };
-        /**
-         * @return {number}
-         */
+
         var CmpSchools = function (a) {
 
             var b = lectionList({'date': a.date}).get();
 
             var col = 0;
 
-            b.forEach(function (cur) {
-                if ((a.lection_schools[0] === 1 || cur.lection_schools[0] === 1) && (cur.lection_id !== a.lection_id)) col++;
-                cur.lection_schools.forEach(function (cur2) {
-                    if (a.lection_schools.indexOf(cur2) !== -1 && (cur.lection_id !== a.lection_id)) {
-                        col++;
+            for (var i in b) {
+                if ((a.lection_schools[0] === 1 || b[i].lection_schools[0] === 1) && (b[i].lection_id !== a.lection_id)) return true;
+                for (var u in b[i].lection_schools){
+                    if (a.lection_schools.indexOf(b[i].lection_schools[u]) !== -1 && (b[i].lection_id !== a.lection_id)) {
+                        return true;
                     }
-                });
-            });
-            return col;
+                }
+            }
+            return false;
         };
-        /**
-         * @return {number}
-         */
         var CmpPlaces = function (a) {
 
             var b = lectionList({'date': a.date}).get();
 
-            var col = 0;
-
-            b.forEach(function (cur) {
-                if (cur.place_id === a.place_id && (cur.lection_id !== a.lection_id)) {
-                    col++
+            for (var i in b) {
+                if (b[i].place_id === a.place_id && (b[i].lection_id !== a.lection_id)) {
+                    return true;
                 }
-            });
-            return col;
+            }
+
         };
-        /**
-         * @return {number}
-         */
         var CheckAvSeats = function (a) {
-            var col = 0;
             var sum = 0;
 
-            a.lection_schools.forEach(function (sc) {
-                sum += getSchools({'id': sc})[0].students_count;
-                if ((sum - getPlaces({'id': a.place_id})[0].max) > 0) col++;
-            });
-            return col;
+           for (var i in  a.lection_schools) {
+                sum += getSchools({'id': a.lection_schools[i]})[0].students_count;
+                if ((sum - getPlaces({'id': a.place_id})[0].max) > 0) return true;
+            }
         };
 
         var TotalCount = function () {
@@ -274,6 +268,11 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             template: "<editlection></editlection>"
         }).state('create_lection', {
             url: '/create/lection/:name',
+            params: {
+                date: null,
+                place: null,
+                lector: null
+            },
             template: "<editlection></editlection>"
         }).state('edit_school', {
             url: '/edit/school/:name',
@@ -301,6 +300,11 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             restrict: 'E',
             replace: true,
             template: "<div class='animate-show-hide visible'></div>"
+        }
+    })
+    .filter('capitalize', function() {
+        return function(input) {
+            return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
         }
     });
 

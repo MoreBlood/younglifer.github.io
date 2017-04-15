@@ -1,4 +1,4 @@
-function EditLectionController($scope, $state, Data, $stateParams, $sce, SweetAlert) {
+function EditLectionController($scope, $state, Data, $stateParams, $document, SweetAlert, $filter) {
 
     Data.getPromise().then(function () {
         var data = Data.getLections();
@@ -7,6 +7,11 @@ function EditLectionController($scope, $state, Data, $stateParams, $sce, SweetAl
         $scope.schools = Data.getSchools();
         $scope.lectors = Data.getLectors();
         $scope.places = Data.getPlaces();
+
+        $document[0].title = 'Редактирование лекции';
+
+
+
 
 
         //проверка на id в строке если меньше чем в базе
@@ -45,10 +50,21 @@ function EditLectionController($scope, $state, Data, $stateParams, $sce, SweetAl
                 $scope.Data.lection_schools.push(id);
                 $scope.checks[id-1] =  true;
             }
-
+            $document[0].title = 'Создание лекции';
             $scope.saveBtn = true;
+
+
             $scope.selectedOptionId = $scope.lectors[0];
             $scope.selectedOptionPlace = $scope.places[0];
+            if ($stateParams.date) {
+                $scope.Data.date = $filter('date')($stateParams.date, 'MM-dd-yyyy')
+            }
+            if ($stateParams.place) {
+                $scope.selectedOptionPlace = Data.getPlaces({'id': $stateParams.place})[0];
+            }
+            if ($stateParams.lector) {
+                $scope.selectedOptionId = Data.getLectors({'id': $stateParams.lector})[0];
+            }
 
         }
 

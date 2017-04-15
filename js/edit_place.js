@@ -1,9 +1,10 @@
-function EditPlaceController($scope, $state, Data, $stateParams, $sce)
+function EditPlaceController($scope, $state, Data, $stateParams, $document)
 {
     Data.getPromise().then(function () {
 
         if ($state.current.name === 'edit_place' && $stateParams.place <= Data.getPlaces().length) {
             $scope.places = angular.copy(Data.getPlaces({'id' : parseInt($stateParams.place, 10)})[0]);
+            $document[0].title = 'Редактирование аудитории';
         }
 
         if ($state.current.name === 'create_place' || $stateParams.place > Data.getPlaces().length) {
@@ -14,6 +15,8 @@ function EditPlaceController($scope, $state, Data, $stateParams, $sce)
                 if (i[0] === "_") delete $scope.places[i];
             }
             $scope.saveBtn = true;
+
+            $document[0].title = 'Создание аудитории';
         }
         $scope.AddPlace = function () {
             if ($state.current.name === 'create_place') {
