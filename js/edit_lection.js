@@ -61,7 +61,7 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
             $scope.selectedOptionId = $scope.lectors[0];
             $scope.selectedOptionPlace = $scope.places[0];
             if ($stateParams.date) {
-                $scope.Data.date = $filter('date')($stateParams.date, 'MM-dd-yyyy HH:mm')//fix !!!!!!!!!
+                $scope.Data._date = $filter('date')($stateParams.date, 'MM-dd-yyyy')//fix !!!!!!!!!
             }
             if ($stateParams.place) {
                 $scope.selectedOptionPlace = Data.getPlaces({'id': $stateParams.place})[0];

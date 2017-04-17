@@ -18,10 +18,10 @@
             <td class="td-lec date"><div class="date-rounded" ng-click="$root.go('lections_date', { 'month' : toDate(item.date, 'MM'), 'date' : toDate(item.date, 'dd'), 'year' : toDate(item.date, 'yyyy')})" ng-class="item.passed == true ? 'passed'  : ''">{{(toDate(item.date) | date:'dd')}}</div></td>
             <td class="td-lec lection-name"> <a ui-sref="about_lection({ id: item.lection_id })" ng-class="item.passed ? 'passed'  : ''"><div ng-show="item.passed" class="play-icon"></div>  Лекция {{$index+1}}. {{item.lection_name}} <br> <small>{{" " + toDate(item.date, 'HH:mm')+  " - " + (GetEndTime(toDate(item.date), item.duration)  | date:'HH:mm')}}</small></a></td>
             <td class="td-lec lector" ng-click="ShowLector($event, item.lector_id)">{{GetLector(item.lector_id)}}</td>
-                <td class="td-lec place" ng-click="$root.go('lections_by_place', { 'name' : 'all', 'place' : item.place_id })">{{GetPlace(item.place_id)}}</td>
+            <td class="td-lec place"> <a ui-sref="lections_by_place({ 'name' : 'all', 'place' : item.place_id })">{{GetPlace(item.place_id)}}</a></td>
             <td class="td-lec schools" >
-                <span ng-repeat="(key, value) in schools" ng-show="hasSchool(value.id, item.lection_schools)" class="school-min" ng-style="{color : value.color }"  ng-click="$root.go('school_lections', { 'name' : value.url })">{{value.short}}</span>
-            <button class="replay-button lec" ng-show="item.passed == 1" ng-click="$root.go('about_lection', { 'id' : item.lection_id})"    ><div ng-show="item.passed" class="play-icon btn lec"></div><span class="button-text"> ЗАПИСЬ</span></button>
+                <a title="{{value.name}}" class="a min-sc" ng-repeat="(key, value) in schools" ui-sref="school_lections({ 'name' : value.url })"><span  ng-show="hasSchool(value.id, item.lection_schools)" class="school-min" ng-style="{color : value.color }">{{value.short}}</span></a>
+            <button class="replay-button lec" ng-show="item.passed && item.video_link" ng-click="$root.go('about_lection', { 'id' : item.lection_id})"    ><div ng-show="item.passed" class="play-icon btn lec"></div><span class="button-text"> ЗАПИСЬ</span></button>
             </td>
         </tr>
         </tbody>

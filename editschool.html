@@ -11,7 +11,7 @@
     <div class="input name"><p class="name-p">Короткое имя</p></div>
 </div>
 <div ng-hide="schools.id === 1" class="input-name-holder">
-    <input  type="number" style="width: 45px" name="count"  class="input nr-border" placeholder="23" ng-model="schools.students_count" pattern="^(([0-9])+)$"  required>
+    <input  type="number" min="1" style="width: 45px" name="count"  class="input nr-border" placeholder="23" ng-model="schools.students_count"   required>
     <div class="input name"><p class="name-p">Кол-во студентов</p></div>
 </div>
 
