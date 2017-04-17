@@ -24,17 +24,18 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
         var date  = $stateParams.date;
         var lector = $stateParams.lector;
         var place = $stateParams.place;
+        var year = $stateParams.year;
 
-        if (month) {
+        if (month && year) {//дописать год!!!!!!!
             if (month.length === 1) month = "0" + month;
-            params['date'] = {regex: new RegExp('^' + month + '........$')};
-            $scope.month = new Date(2016, month - 1, 01 );
+            params['date'] = {regex: new RegExp('^' + month + '....' + year + '......$')};
+            $scope.month = new Date(year, month - 1, 01 );
             $document[0].title = $filter('capitalize')($filter('date')($scope.month, 'MMMM'));
         }
-        if (date && month) {
+        if (date && month && year) {
             if (date.length === 1) date = "0" + date;
-            params['date'] = {regex: new RegExp('^' + month + '.' + date + '.....$')};
-            $scope.date = new Date(2016, month - 1, date);
+            params['date'] = {regex: new RegExp('^' + month + '.' + date + '.' + year + '......$')};
+            $scope.date = new Date(year, month - 1, date);
 
             $document[0].title = $filter('capitalize')($filter('date')($scope.date, 'MMMM d'));
         }
@@ -72,7 +73,7 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
         });
 
         $scope.Data.sort(function (a, b) {
-            return  Date.parseExact(a.date, "MM-dd-yyyy") -  Date.parseExact(b.date, "MM-dd-yyyy");
+            return  $scope.toDate(a.date) -  $scope.toDate(b.date);
         });
     });
 
@@ -88,8 +89,11 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
         });
     };
 
-    $scope.toDate = function (date) {
-        return Date.parseExact(date, "MM-dd-yyyy");
+    $scope.toDate = function (date, type) {
+
+        var format = "MM-dd-yyyy HH:mm";
+        if (type) return $filter('date')(Date.parseExact(date, format), type);
+        return Date.parseExact(date, format);
     };
 
     $scope.ShowLector = function ($event, element) {
@@ -103,6 +107,11 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
     $scope.GetPlace = function (id) {
         return Data.getPlaces({'id': id})[0].name.toString();
     };
+    $scope.GetEndTime = function (st, dur) {
+        var duration =  Date.parseExact(dur, 'HH:mm');
+        var date = angular.copy(Date.parse(st));
+        return date.add({hours : duration.getHours(), minutes: duration.getMinutes()});
+    }
 
     /**
      * @return {string}

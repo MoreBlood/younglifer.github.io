@@ -104,7 +104,7 @@ td.td-lec.lection-name {
     color: #828282;
     clear: both;
     position: relative;
-    width: 20%
+    width: 20%;
 }
 .td-lec.place {
     font-weight: 300;
@@ -236,7 +236,8 @@ input.replay-button:hover {
     border-color: #000000
 }
 td.td-lec.lector:hover {
-    color: #1f1f1f
+    color: #1f1f1f;
+    text-decoration: underline;
 }
 button.replay-button:active,
 input.replay-button:active {
@@ -348,7 +349,7 @@ a:hover {
     text-decoration: underline
 }
 a:active {
-    color: #ffffff
+    color: #003494;
 }
 .nav-el:active {} td.td-lec.schools {} div.date-rounded {
                                            width: 37px;
@@ -358,7 +359,8 @@ a:active {
                                            height: 37px;
                                            display: flex;
                                            align-items: center;
-                                           justify-content: center
+                                           justify-content: center;
+                                           transition: all 0.2s linear;
                                        }
 .lection {
     margin-bottom: 10px;
@@ -725,7 +727,8 @@ div.icon.add {
     margin-right: 0
 }
 .td-lec.place:hover {
-    color: #000000
+    color: #000000;
+    text-decoration: underline;
 }
 p.text-h1.notfound {
     text-align: center
@@ -777,4 +780,26 @@ p.text-h1.notfound nfound {
     display: inline-flex;
     margin-bottom: -20px;
     font-size: 172px
+}
+
+span.text-h4:hover {
+    text-decoration: underline;
+}
+
+.date-rounded:hover {
+    color: red;
+    background: white;
+    border: 1px solid red;
+    box-sizing: border-box;
+}
+
+.date-rounded.passed:hover {
+    color: #787878;
+    background: white!important;
+    border: 1px solid #787878;
+    box-sizing: border-box;
+}
+
+a.passed small {
+    color: #bfbfbf;
 }

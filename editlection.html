@@ -10,12 +10,20 @@
 
 <div class="input-name-holder">
     <datepicker date-format="MM-dd-yyyy" datepicker-mobile="true">
-        <input type="text" style="width: 100px" name="date" class="input nr-border" pattern="^(0[1-9]|1[012])-([123]0|[012][1-9]|31)-(19[0-9]{2}|2[0-9]{3})" ng-model="Data.date" placeholder="12-26-2016"   required>
+        <input type="text" style="width: 100px" name="date" class="input nr-border" pattern="^(0[1-9]|1[012])-([123]0|[012][1-9]|31)-(19[0-9]{2}|2[0-9]{3})" ng-model="Data._date" placeholder="12-26-2016"   required>
 
     </datepicker>
     <div class="input name"><p class="name-p">Дата</p></div>
 
 </div>
+    <div class="input-name-holder">
+        <input type="time" style="width: 75px" name="time" class="input nr-border"  ng-model="Data._time" placeholder="10:20"   required>
+        <div class="input name"><p class="name-p">Время</p></div>
+    </div>
+    <div class="input-name-holder">
+        <input type="time" style="width: 75px" name="time" class="input nr-border" ng-model="Data._duration" placeholder="02:20"   required>
+        <div class="input name"><p class="name-p">Продолжительность</p></div>
+    </div>
 <div class="input-name-holder">
     <select name="repeatSelect" class="input nr-border" ng-model="selectedOptionPlace"  ng-options="option.name for option in places track by option.id">
     </select>

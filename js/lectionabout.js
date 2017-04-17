@@ -14,7 +14,7 @@ function LectionAboutController($rootScope, $scope, Data, $state, $stateParams, 
         $document[0].title = $scope.Data.lection_name;
         $scope.ytUrl = $sce.trustAsResourceUrl($scope.Data.video_link);
 
-        $scope.dateParsed = Date.parseExact($scope.Data.date, "MM-dd-yyyy");
+        $scope.dateParsed = Date.parseExact($scope.Data.date, "MM-dd-yyyy HH:mm");
         lector["id"] = parseInt($scope.Data.lector_id);
         $scope.Lector = Data.getLectors(lector)[0];
     });
@@ -26,6 +26,11 @@ function LectionAboutController($rootScope, $scope, Data, $state, $stateParams, 
     $scope.hasSchool = function (sc, list) {
         return list.indexOf(sc) !== -1;
     };
+    $scope.GetEndTime = function (st, dur) {
+        var duration =  Date.parseExact(dur, 'HH:mm');
+        var date = angular.copy(Date.parse(st));
+        return date.add({hours : duration.getHours(), minutes: duration.getMinutes()});
+    }
 }
 
 angular.module('timetableapp').component('lectionabout', {

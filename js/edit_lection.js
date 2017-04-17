@@ -34,6 +34,10 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
             $scope.checks[p1-1] = true;
         });
 
+        $scope.Data._time = Date.parseExact(angular.copy($scope.Data.date), 'MM-dd-yyyy HH:mm');
+        $scope.Data._duration = Date.parseExact(angular.copy($scope.Data.duration), 'HH:mm');
+        $scope.Data._date = $filter('date')(Date.parseExact(angular.copy($scope.Data.date), 'MM-dd-yyyy HH:mm'), 'MM-dd-yyyy');
+
 
         //чистим
         if ($state.current.name === 'create_lection' || $stateParams.id > data().get().length) {
@@ -57,7 +61,7 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
             $scope.selectedOptionId = $scope.lectors[0];
             $scope.selectedOptionPlace = $scope.places[0];
             if ($stateParams.date) {
-                $scope.Data.date = $filter('date')($stateParams.date, 'MM-dd-yyyy')
+                $scope.Data.date = $filter('date')($stateParams.date, 'MM-dd-yyyy HH:mm')//fix !!!!!!!!!
             }
             if ($stateParams.place) {
                 $scope.selectedOptionPlace = Data.getPlaces({'id': $stateParams.place})[0];
@@ -70,18 +74,21 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
 
         $scope.AddLection = function () {
 
-            errors = ['У выбранных школ в этот день уже есть лекция',
-                'В выбранной аудитории уже есть лекция в этот день',
+            $scope.Data.date =  $filter('date')($scope.Data._date, "MM-dd-yyy") + " " +  $filter('date')($scope.Data._time, "HH:mm");
+            $scope.Data.duration =  $filter('date')($scope.Data._duration, "HH:mm");
+
+            errors = ['У выбранных школ в это время уже есть лекция',
+                'В выбранной аудитории уже есть лекция в это время',
                 'Аудитория слишком мала',
                 'Вы не выбрали ни одной школы'];
 
             var display_er = function () {
                 return SweetAlert.swal({
-                    type: "error",
-                    title: "Ошибка!",
+                    type: "warning",
+                    title: "Проверьте правильность данных!",
                     text:  errors[type-1],
-                    timer: 2000,
-                    showConfirmButton: false
+                    timer: 10000,
+                    showConfirmButton: true
                 });
             };
 

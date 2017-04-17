@@ -1,14 +1,9 @@
 //to-do list
-
-//page names
-// - обработки ошибок
-// - подсказки при наведении
-// сделать экспорт
 // тесты
 
 
 angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', 'colorpicker-dr', 'oitozero.ngSweetAlert'])
-    .controller("timeTableController", function ($scope, $rootScope, $state, Data, SweetAlert) {
+    .controller("timeTableController", function ($scope, $rootScope, $state, Data, SweetAlert, $filter) {
         Data.setContent(); //init data api and it's promise
 
         //анимация загрузки
@@ -46,9 +41,45 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
         $scope.ClearCache = function () {
             localStorage.clear();
             window.location.href = '';
+
+        };
+
+        function download(filename, text) {
+            var pom = document.createElement('a');
+            pom.setAttribute('href', 'data:json/plain;charset=utf-8,' + encodeURIComponent(text));
+            pom.setAttribute('download', filename);
+
+            if (document.createEvent) {
+                var event = document.createEvent('MouseEvents');
+                event.initEvent('click', true, true);
+                pom.dispatchEvent(event);
+            }
+            else {
+                pom.click();
+            }
         }
+        $scope.SaveData = function () {
+            var JSONObject = [];
+            var tags = ['schools', 'lectors', 'places', 'lections'];
+            var out = "";
+            JSONObject[0] = Data.getSchools();
+            JSONObject[1] = Data.getLectors();
+            JSONObject[2] = Data.getPlaces();
+            JSONObject[3] = Data.getLections()().get();
+            out+='[{';
+            for (var i in JSONObject) {
+                out += ('"' + tags[i] + '": ' + JSON.stringify(JSONObject[i], function (key, value) {
+                    if (key === '___id' || key === '___s' || key === '$$hashKey') return undefined;
+                    return value;
+                }) + (i !==3 ? ',' : ''));
+            }
+            out+='}]';
+
+            download('data_new.json', out);
+        };
+
     })
-    .service('Data', function ($http, $q, $rootScope) {
+    .service('Data', function ($http, $q, $rootScope, $filter) {
 
         var signal = $q.defer();
 
@@ -119,10 +150,12 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             return placesList(paramsObj).order("name").get();
         };
 
+        /**
+         * @return {boolean}
+         */
         var CmpSchools = function (a) {
 
-            var b = lectionList({'date': a.date}).get();
-
+            var b = GetSchoolsBasedOnLectionPassedTimeRange(a);
             var col = 0;
 
             for (var i in b) {
@@ -135,17 +168,46 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             }
             return false;
         };
+        /**
+         * @return {boolean}
+         */
         var CmpPlaces = function (a) {
 
-            var b = lectionList({'date': a.date}).get();
+
+            var b = GetSchoolsBasedOnLectionPassedTimeRange(a);
 
             for (var i in b) {
                 if (b[i].place_id === a.place_id && (b[i].lection_id !== a.lection_id)) {
                     return true;
                 }
             }
+            return false;
 
         };
+
+        var GetSchoolsBasedOnLectionPassedTimeRange = function (a) {
+
+            var b = [];
+
+            var _a = [];
+            _a.date = $filter('date')(Date.parseExact(a.date, 'MM-dd-yyyy HH:mm'), 'MM-dd-yyyy');
+            _a.duration = Date.parseExact(a.duration, 'HH:mm');
+            _a.start = Date.parseExact(a.date, 'MM-dd-yyyy HH:mm');
+            _a.end = angular.copy(_a.start).add({hours : _a.duration.getHours(), minutes: _a.duration.getMinutes()});
+
+            var b_raw = lectionList({'date': {regex: new RegExp('^' + _a.date  +'......$')}}).each(function (record) {
+                var _b = [];
+                _b.duration = Date.parseExact(record.duration, 'HH:mm');
+                _b.start = Date.parseExact(record.date, 'MM-dd-yyyy HH:mm');
+                _b.end = angular.copy(_b.start).add({hours : _b.duration.getHours(), minutes: _b.duration.getMinutes()});
+
+                if (_a.start.between(_b.start, _b.end) || _a.end.between(_b.start, _b.end)) b.push(record);
+            });
+
+            return b;
+
+        };
+
         var CheckAvSeats = function (a) {
             var sum = 0;
 
@@ -255,10 +317,10 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             url: '/lector/:lector',
             template: "<lection></lection>"
         }).state('lections_date', {
-            url: '/month/:month/day/:date',
+            url: '/month/:month/day/:date/year/:year',
             template: "<lection></lection>"
         }).state('lections_date_month', {
-            url: '/month/:month',
+            url: '/month/:month/year/:year',
             template: "<lection></lection>"
         }).state('lections_by_place', {
             url: '/place/id/:place',

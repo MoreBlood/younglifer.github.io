@@ -9,7 +9,7 @@
 </div>
 <div class="text-about-lector ab-lec">
     <p class="text-h1 ab-lec">{{Data.lection_name}}</p>
-    <p class="date ab-lec">{{(dateParsed | date:'dd MMMM yyyy')+  " - " + GetPlace(Data.place_id)}}
+    <p class="date ab-lec">{{(dateParsed | date:'dd MMMM yyyy, HH:mm')+  " - " + (GetEndTime(dateParsed, Data.duration )  | date:'HH:mm,') + "  " + GetPlace(Data.place_id)}}
         <span ng-repeat="(key, value) in schools" ng-show="hasSchool(value.id, Data.lection_schools)" class="school-min" ng-style="{color : value.color }"  ng-click="$root.go('school_lections', { 'name' : value.url })">{{value.short}}</span>
     </p>
 
