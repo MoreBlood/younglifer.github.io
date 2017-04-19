@@ -820,3 +820,13 @@ a span.school-min:hover {
 a.min-sc:hover {
     text-decoration: none;
 }
+
+.input.nr-border:focus {
+    box-shadow: -1px 1px 10px #d8d8d8!important;
+}
+.input.nr-border:valid {
+    box-shadow: inset 0px -1px 0px rgba(102, 255, 133, 0.47);
+}
+.input.nr-border:invalid {
+    box-shadow: inset 0px -1px 0px rgba(255, 102, 102, 0.46);
+}
