@@ -1,3 +1,4 @@
+'use strict';
 function LectionController($rootScope, $scope, $state, Data, $stateParams, $filter, $document) {
     $scope.current = $stateParams.name;
     Data.getPromise().then(function () {
@@ -29,7 +30,7 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
         if (month && year) {//дописать год!!!!!!!
             if (month.length === 1) month = "0" + month;
             params['date'] = {regex: new RegExp('^' + month + '....' + year + '......$')};
-            $scope.month = new Date(year, month - 1, 01 );
+            $scope.month = new Date(year, month - 1, 1);
             $document[0].title = $filter('capitalize')($filter('date')($scope.month, 'MMMM'));
         }
         if (date && month && year) {
@@ -122,6 +123,6 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
 }
 
 angular.module('timetableapp').component('lection', {
-        templateUrl: 'lection.html',
+        templateUrl: 'views/lection.html',
         controller: LectionController
     });

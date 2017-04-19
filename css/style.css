@@ -531,14 +531,14 @@ button.replay-button.about.pop {
     padding: 5px 10px 5px 10px
 }
 .input.nr-border {
-    font-weight: 200;
+    font-weight: 300;
     font-size: 15px;
     color: #292929;
     padding: 9px 9px 9px 16px;
     border: 1px solid #d8d8d8;
     text-overflow: ellipsis;
     border-radius: 0;
-    font-family: 'helvetica neue', 'Yandex Sans Text', 'Open Sans', Arial, sans-serif
+    font-family: 'helvetica neue', 'Yandex Sans Text', 'Open Sans', Arial, sans-serif;
 }
 .input.name {
     background: #D8D8D8;
@@ -559,12 +559,12 @@ p.name-p {
 }
 .list-check {
     clear: both;
-    font-weight: lighter;
+    font-weight: 300;
     font-size: 15px;
     color: #696969;
     display: flex;
     align-items: center;
-    margin-top: 15px
+    margin-top: 15px;
 }
 .squaredCheckbox {
     position: relative;
@@ -641,7 +641,8 @@ input.input.nr-border {
                          background-position-y: 15px;
                          padding-right: 38px;
                          max-width: 200px;
-                         text-overflow: clip
+                         text-overflow: clip;
+                         -moz-appearance: none;
                      }
 p.text-h1:first-letter {
     /* text-transform: capitalize */

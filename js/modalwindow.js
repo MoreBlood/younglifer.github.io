@@ -1,3 +1,4 @@
+'use strict';
 function PopUpController($scope, $location, $http, $window, Data) {
 
     var window = angular.element(document.querySelector(".pop-up"));
@@ -39,7 +40,7 @@ function PopUpController($scope, $location, $http, $window, Data) {
 
 angular.module('timetableapp').component('popup', {
 
-    templateUrl: 'pop_up.html',
+    templateUrl: 'views/pop_up.html',
     controller: PopUpController
 });
 

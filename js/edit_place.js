@@ -1,3 +1,4 @@
+'use strict';
 function EditPlaceController($scope, $state, Data, $stateParams, $document)
 {
     Data.getPromise().then(function () {
@@ -37,7 +38,7 @@ function EditPlaceController($scope, $state, Data, $stateParams, $document)
 
 angular.module('timetableapp').component('editplace',
     {
-        templateUrl: 'editplace.html',
+        templateUrl: 'views/editplace.html',
         controller: EditPlaceController
     });
 

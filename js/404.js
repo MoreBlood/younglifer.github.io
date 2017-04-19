@@ -1,3 +1,5 @@
+'use strict';
+
 function NotFoundController($rootScope, $scope, Data, $state, $stateParams, $document) {
 
     //if (!$scope.show) $document[0].title = '404';
@@ -12,7 +14,7 @@ function NotFoundController($rootScope, $scope, Data, $state, $stateParams, $doc
 
 angular.module('timetableapp').component('notfound',
     {
-        templateUrl: '404.html',
+        templateUrl: 'views/404.html',
         controller: NotFoundController
     });
 

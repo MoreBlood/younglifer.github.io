@@ -1,5 +1,4 @@
-//to-do list
-// тесты
+'use strict';
 
 
 angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', 'colorpicker-dr', 'oitozero.ngSweetAlert'])

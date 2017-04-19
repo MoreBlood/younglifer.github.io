@@ -1,3 +1,4 @@
+'use strict';
 function NavBarController($scope, $state, Data) {
     $scope.current = $state.params.name;
 
@@ -14,7 +15,7 @@ function NavBarController($scope, $state, Data) {
 }
 
 angular.module('timetableapp').component('navbar', {
-    templateUrl: 'navbar.html',
+    templateUrl: 'views/navbar.html',
     controller: NavBarController
 });
 

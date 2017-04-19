@@ -1,3 +1,4 @@
+'use strict';
 function EditSchoolController($scope, $state, Data, $stateParams, $document) {
 
     Data.getPromise().then(function () {
@@ -39,7 +40,7 @@ function EditSchoolController($scope, $state, Data, $stateParams, $document) {
 
 angular.module('timetableapp').component('editschool',
     {
-        templateUrl: 'editschool.html',
+        templateUrl: 'views/editschool.html',
         controller: EditSchoolController
     });
 

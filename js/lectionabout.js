@@ -1,3 +1,4 @@
+'use strict';
 function LectionAboutController($rootScope, $scope, Data, $state, $stateParams, $sce, $document) {
     Data.getPromise().then(function () {
         var schools = {};
@@ -34,7 +35,7 @@ function LectionAboutController($rootScope, $scope, Data, $state, $stateParams, 
 }
 
 angular.module('timetableapp').component('lectionabout', {
-        templateUrl: 'lectionabout.html',
+        templateUrl: 'views/lectionabout.html',
         controller: LectionAboutController
     });
 

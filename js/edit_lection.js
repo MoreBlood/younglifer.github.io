@@ -1,3 +1,4 @@
+'use strict';
 function EditLectionController($scope, $state, Data, $stateParams, $document, SweetAlert, $filter) {
 
     Data.getPromise().then(function () {
@@ -10,18 +11,12 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
 
         $document[0].title = 'Редактирование лекции';
 
-
-
-
-
         //проверка на id в строке если меньше чем в базе
         if (data().get().length  >= $stateParams.id && $stateParams.id) {
             selector["lection_id"] = parseInt($stateParams.id, 10);
         }
 
-
         $scope.Data = angular.copy(data(selector).get()[0]);
-
 
         if (data().get().length >= $stateParams.id && $stateParams.id) {
             $scope.selectedOptionId = Data.getLectors({'id': $scope.Data.lector_id})[0];
@@ -50,7 +45,7 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
             $scope.checks = [];
 
             if ($stateParams.name) {
-                id = Data.getSchools({'url' :$stateParams.name })[0].id ;
+                var id = Data.getSchools({'url' :$stateParams.name })[0].id ;
                 $scope.Data.lection_schools.push(id);
                 $scope.checks[id-1] =  true;
             }
@@ -77,7 +72,7 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
             $scope.Data.date =  $filter('date')($scope.Data._date, "MM-dd-yyy") + " " +  $filter('date')($scope.Data._time, "HH:mm");
             $scope.Data.duration =  $filter('date')($scope.Data._duration, "HH:mm");
 
-            errors = ['У выбранных школ в это время уже есть лекция',
+            var errors = ['У выбранных школ в это время уже есть лекция',
                 'В выбранной аудитории уже есть лекция в это время',
                 'Аудитория слишком мала',
                 'Вы не выбрали ни одной школы'];
@@ -139,7 +134,7 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
             $scope.Data.lection_schools.push(sc);
         }
         else {
-            index = $scope.Data.lection_schools.indexOf(sc);
+            var index = $scope.Data.lection_schools.indexOf(sc);
             $scope.Data.lection_schools.splice(index, 1);
         }
     };
@@ -158,7 +153,7 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
 
 angular.module('timetableapp').component('editlection',
     {
-        templateUrl: 'editlection.html',
+        templateUrl: 'views/editlection.html',
         controller: EditLectionController
     });
 
