@@ -82,14 +82,6 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
        return list.indexOf(sc) !== -1;
     };
 
-    var checkForSchools = function (schools) {
-        return schools.forEach(function (sc) {
-            if (sc){
-                return true;
-            }
-        });
-    };
-
     $scope.toDate = function (date, type) {
 
         var format = "MM-dd-yyyy HH:mm";
@@ -112,7 +104,7 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
         var duration =  Date.parseExact(dur, 'HH:mm');
         var date = angular.copy(Date.parse(st));
         return date.add({hours : duration.getHours(), minutes: duration.getMinutes()});
-    }
+    };
 
     /**
      * @return {string}

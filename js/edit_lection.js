@@ -1,6 +1,6 @@
 'use strict';
-function EditLectionController($scope, $state, Data, $stateParams, $document, SweetAlert, $filter) {
 
+function EditLectionController($scope, $state, Data, $stateParams, $document, SweetAlert, $filter) {
     Data.getPromise().then(function () {
         var data = Data.getLections();
         var selector = {};
@@ -33,12 +33,13 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
         $scope.Data._duration = Date.parseExact(angular.copy($scope.Data.duration), 'HH:mm');
         $scope.Data._date = $filter('date')(Date.parseExact(angular.copy($scope.Data.date), 'MM-dd-yyyy HH:mm'), 'MM-dd-yyyy');
 
-
         //чистим
         if ($state.current.name === 'create_lection' || $stateParams.id > data().get().length) {
             for (var i in $scope.Data) {
-                $scope.Data[i] = undefined;
-                if (i[0] === "_") delete $scope.Data[i];
+                if ($scope.Data.hasOwnProperty(i)){
+                    $scope.Data[i] = undefined;
+                    if (i[0] === "_") delete $scope.Data[i];
+                }
             }
 
             $scope.Data.lection_schools = [];
@@ -64,10 +65,11 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
             if ($stateParams.lector) {
                 $scope.selectedOptionId = Data.getLectors({'id': $stateParams.lector})[0];
             }
-
         }
 
         $scope.AddLection = function () {
+
+            var type = null;
 
             $scope.Data.date =  $filter('date')($scope.Data._date, "MM-dd-yyy") + " " +  $filter('date')($scope.Data._time, "HH:mm");
             $scope.Data.duration =  $filter('date')($scope.Data._duration, "HH:mm");
@@ -88,7 +90,7 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
             };
 
             if (!$scope.Data.lection_schools.length){
-                var type = 4;
+                type = 4;
                 display_er();
                 return;
             }
@@ -96,14 +98,14 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
             if ($state.current.name === 'create_lection'){
                 $scope.Data.lection_id = data().get().length + 1;
 
-                var type = Data.set.lection($scope.Data);
+                type = Data.set.lection($scope.Data);
                 if (type){
                     display_er();
                     return;
                 }
             }
             else {
-                var type = Data.put.lection($scope.Data.lection_id, angular.copy($scope.Data));
+                type = Data.put.lection($scope.Data.lection_id, angular.copy($scope.Data));
                 if (type){
                     display_er();
                     return;
@@ -140,8 +142,7 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
     };
 
     $scope.hasSchool = function (sc, list) {
-        if (list.indexOf(sc) !== -1)  return true;
-        else return false;
+        return list.indexOf(sc) !== -1;
     };
 
     //перевод в объект даты

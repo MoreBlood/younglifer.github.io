@@ -1,15 +1,11 @@
 'use strict';
-function PopUpController($scope, $location, $http, $window, Data) {
+function PopUpController($scope, $window, Data) {
 
     var window = angular.element(document.querySelector(".pop-up"));
 
     $scope.$on('showLector', function (event, target, element) {
         Data.getPromise().then(function () {
-            var data = TAFFY(Data.getLectors()),
-                lector = {};
-            lector["id"] = element;
-
-            $scope.data = data(lector).get()[0];
+            $scope.data = Data.getLectors({id: element})[0];
 
             $scope.$watch('data', function () {
                 $scope.popUpStyle = {"top": target.clientY + 10 + "px", 'visibility': 'visible'};
@@ -19,14 +15,14 @@ function PopUpController($scope, $location, $http, $window, Data) {
                 };
             });
 
-            angular.element(document.querySelector(".main-content")).bind("click", function (event, target) {
+            angular.element(document.querySelector(".main-content")).bind("click", function (event) {
                 if (event.target.className === "td-lec lector ng-binding") return;
                 $scope.hide();
             });
         })
     });
 
-    angular.element($window).bind("scroll", function (event, target) {
+    angular.element($window).bind("scroll", function () {
         $scope.hide();
     });
 

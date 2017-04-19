@@ -12,8 +12,10 @@ function EditSchoolController($scope, $state, Data, $stateParams, $document) {
         if (!$stateParams.name || $state.current.name === 'create_school') {
             $scope.schools = angular.copy(Data.getSchools()[0]);
             for (var i in $scope.schools) {
-                $scope.schools[i] = "";
-                if (i[0] === "_") delete $scope.schools[i];
+                if ($scope.schools.hasOwnProperty(i)) {
+                    $scope.schools[i] = "";
+                    if (i[0] === "_") delete $scope.schools[i];
+                }
             }
             $scope.saveBtn = true;
 

@@ -8,8 +8,7 @@
         "description": "description",
         "students_count": 96,
         "url": "all",
-        "id": 1,
-        "$$hashKey": "object:7"
+        "id": 1
       },
       {
         "name": "Разработка интерфейсов",
@@ -18,8 +17,7 @@
         "description": "description",
         "students_count": 22,
         "url": "interface",
-        "id": 2,
-        "$$hashKey": "object:8"
+        "id": 2
       },
       {
         "name": "Мобильная разработка",
@@ -28,8 +26,7 @@
         "description": "description",
         "students_count": 26,
         "url": "mobile",
-        "id": 3,
-        "$$hashKey": "object:9"
+        "id": 3
       },
       {
         "name": "Мобильный дизайн",
@@ -38,8 +35,7 @@
         "description": "description",
         "students_count": 20,
         "url": "design",
-        "id": 4,
-        "$$hashKey": "object:10"
+        "id": 4
       },
       {
         "name": "Радужные единороги",
@@ -48,8 +44,7 @@
         "description": "description",
         "students_count": 28,
         "url": "edinorog",
-        "id": 5,
-        "$$hashKey": "object:11"
+        "id": 5
       }
     ],
     "lectors": [

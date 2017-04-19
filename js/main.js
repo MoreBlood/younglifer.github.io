@@ -2,7 +2,7 @@
 
 
 angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', 'colorpicker-dr', 'oitozero.ngSweetAlert'])
-    .controller("timeTableController", function ($scope, $rootScope, $state, Data, SweetAlert, $filter) {
+    .controller("timeTableController", function ($scope, $rootScope, $state, Data) {
         Data.setContent(); //init data api and it's promise
 
         //анимация загрузки
@@ -19,7 +19,7 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             });
         });
         //no params ex www.site.ru/
-        $rootScope.$on('$stateChangeStart', function (evt, to, params) {
+        $rootScope.$on('$stateChangeStart', function (evt, to) {
             if (to.redirectTo) {
                 evt.preventDefault();
                 Data.getPromise().then(function () {
@@ -128,7 +128,7 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
                     signal.reject();
                 });
         };
-
+        // получить promise, чтобы использовать сервис, после его инициализации
         var getPromise = function () {
             return signal.promise;
         };
@@ -153,15 +153,15 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
          * @return {boolean}
          */
         var CmpSchools = function (a) {
-
             var b = GetSchoolsBasedOnLectionPassedTimeRange(a);
-            var col = 0;
 
             for (var i in b) {
-                if ((a.lection_schools[0] === 1 || b[i].lection_schools[0] === 1) && (b[i].lection_id !== a.lection_id)) return true;
-                for (var u in b[i].lection_schools){
-                    if (a.lection_schools.indexOf(b[i].lection_schools[u]) !== -1 && (b[i].lection_id !== a.lection_id)) {
-                        return true;
+                if (b.hasOwnProperty(i)) {
+                    if ((a.lection_schools[0] === 1 || b[i].lection_schools[0] === 1) && (b[i].lection_id !== a.lection_id)) return true;
+                    for (var u in b[i].lection_schools) {
+                        if (a.lection_schools.indexOf(b[i].lection_schools[u]) !== -1 && (b[i].lection_id !== a.lection_id)) {
+                            return true;
+                        }
                     }
                 }
             }
@@ -176,8 +176,10 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             var b = GetSchoolsBasedOnLectionPassedTimeRange(a);
 
             for (var i in b) {
-                if (b[i].place_id === a.place_id && (b[i].lection_id !== a.lection_id)) {
-                    return true;
+                if (b.hasOwnProperty(i)) {
+                    if (b[i].place_id === a.place_id && (b[i].lection_id !== a.lection_id)) {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -194,7 +196,7 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             _a.start = Date.parseExact(a.date, 'MM-dd-yyyy HH:mm');
             _a.end = angular.copy(_a.start).add({hours : _a.duration.getHours(), minutes: _a.duration.getMinutes()});
 
-            var b_raw = lectionList({'date': {regex: new RegExp('^' + _a.date  +'......$')}}).each(function (record) {
+            lectionList({'date': {regex: new RegExp('^' + _a.date  +'......$')}}).each(function (record) {
                 var _b = [];
                 _b.duration = Date.parseExact(record.duration, 'HH:mm');
                 _b.start = Date.parseExact(record.date, 'MM-dd-yyyy HH:mm');
@@ -207,6 +209,9 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
 
         };
 
+        /**
+         * @return {boolean}
+         */
         var CheckAvSeats = function (a) {
             var sum = 0;
 

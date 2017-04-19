@@ -12,8 +12,10 @@ function EditPlaceController($scope, $state, Data, $stateParams, $document)
             $scope.places = angular.copy(Data.getPlaces()[0]);
 
             for (var i in $scope.places) {
-                $scope.places[i] = "";
-                if (i[0] === "_") delete $scope.places[i];
+                if ($scope.places.hasOwnProperty(i)) {
+                    $scope.places[i] = "";
+                    if (i[0] === "_") delete $scope.places[i];
+                }
             }
             $scope.saveBtn = true;
 

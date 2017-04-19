@@ -32,12 +32,13 @@
 .page-header {
     padding-left: 5px
 }
-td {} .hidden {
-          visibility: hidden;
-          opacity: 0;
-          transition: visibility cubic-bezier(0.68, 0.15, 1, 1) 0.3s, opacity 0.3s cubic-bezier(0.73, 0.08, 1, 1);
-          top: 0 !important
-      }
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility cubic-bezier(0.68, 0.15, 1, 1) 0.3s, opacity 0.3s cubic-bezier(0.73, 0.08, 1, 1);
+    top: 0 !important
+}
 .visible {
     visibility: visible;
     opacity: 1;
@@ -351,17 +352,18 @@ a:hover {
 a:active {
     color: #003494;
 }
-.nav-el:active {} td.td-lec.schools {} div.date-rounded {
-                                           width: 37px;
-                                           background: #FF0000;
-                                           border-radius: 50%;
-                                           cursor: pointer;
-                                           height: 37px;
-                                           display: flex;
-                                           align-items: center;
-                                           justify-content: center;
-                                           transition: all 0.2s linear;
-                                       }
+
+div.date-rounded {
+    width: 37px;
+    background: #FF0000;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s linear;
+}
 .lection {
     margin-bottom: 10px;
     margin-top: 10px
@@ -521,7 +523,7 @@ div.play-icon {
     height: 11px;
     background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTRweCIgaGVpZ2h0PSIxM3B4IiB2aWV3Qm94PSIwIDAgMTQgMTMiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQyICgzNjc4MSkgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+CiAgICA8dGl0bGU+0LfQsNC/0LjRgdGMPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9ImlQaG9uZS03IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNjIuMDAwMDAwLCAtMjE2LjAwMDAwMCkiIGZpbGw9IiM3ODc4NzgiPgogICAgICAgICAgICA8ZyBpZD0i0LvQtdC60YbQuNGPIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNS4wMDAwMDAsIDIwNy4wMDAwMDApIj4KICAgICAgICAgICAgICAgIDxnIGlkPSLQt9Cw0L/QuNGB0YwiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQ3LjAwMDAwMCwgOS4wMDAwMDApIj4KICAgICAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iVHJpYW5nbGUiIHBvaW50cz0iMTMuNjE2Njk4MyA2LjUgLTIuNjY0NTM1MjZlLTE1IDEzIC0yLjY2NDUzNTI2ZS0xNSAyLjY2NDUzNTI2ZS0xNSI+PC9wb2x5Z29uPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=');
     display: none;
-    margin-right: 0px;
+    margin-right: 0;
     background-size: 100%;
 }
 .play-icon.btn {
@@ -631,19 +633,20 @@ div.icon:hover {
 input.input.nr-border {
     border-right-width: 0
 }
-.edit-icon.school {} select.input.nr-border {
-                         height: 38px;
-                         border-radius: 0 !important;
-                         -webkit-appearance: none;
-                         background: #FFFFFF url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3992.297 449.28 20.009 10.344'%3E%3Cdefs%3E%3Cstyle%3E .cls-1 { fill: %23929292 } %3C/style%3E%3C/defs%3E%3Cpath id='Path_44' data-name='Path 44' class='cls-1' d='M3672.3,2154.28l10.228,10.344,9.781-10.344Z' transform='translate(320 -1705)'/%3E%3C/svg%3E") no-repeat;
-                         background-size: 15px;
-                         background-position-x: calc(100% - 10px);
-                         background-position-y: 15px;
-                         padding-right: 38px;
-                         max-width: 200px;
-                         text-overflow: clip;
-                         -moz-appearance: none;
-                     }
+
+select.input.nr-border {
+    height: 38px;
+    border-radius: 0 !important;
+    -webkit-appearance: none;
+    background: #FFFFFF url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3992.297 449.28 20.009 10.344'%3E%3Cdefs%3E%3Cstyle%3E .cls-1 { fill: %23929292 } %3C/style%3E%3C/defs%3E%3Cpath id='Path_44' data-name='Path 44' class='cls-1' d='M3672.3,2154.28l10.228,10.344,9.781-10.344Z' transform='translate(320 -1705)'/%3E%3C/svg%3E") no-repeat;
+    background-size: 15px;
+    background-position-x: calc(100% - 10px);
+    background-position-y: 15px;
+    padding-right: 38px;
+    max-width: 200px;
+    text-overflow: clip;
+    -moz-appearance: none;
+}
 p.text-h1:first-letter {
     /* text-transform: capitalize */
 }
@@ -729,7 +732,6 @@ div.icon.add {
 }
 .td-lec.place a:hover {
     color: #000000;
-    /* text-decoration: underline; */
 }
 p.text-h1.notfound {
     text-align: center
@@ -825,8 +827,8 @@ a.min-sc:hover {
     box-shadow: -1px 1px 10px #d8d8d8!important;
 }
 .input.nr-border:valid {
-    box-shadow: inset 0px -1px 0px rgba(102, 255, 133, 0.47);
+    box-shadow: inset 0 -1px 0 rgba(102, 255, 133, 0.47);
 }
 .input.nr-border:invalid {
-    box-shadow: inset 0px -1px 0px rgba(255, 102, 102, 0.46);
+    box-shadow: inset 0 -1px 0 rgba(255, 102, 102, 0.46);
 }
