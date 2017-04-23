@@ -1,6 +1,4 @@
-describe("Тестирование сервиса Data", function () {
-
-    function testController(Data) {
+ function testController(Data) {
         for (var u in localStorage) {
             if (localStorage.hasOwnProperty(u)) {
                 if (u.split("_")[2] === 'test') delete localStorage[u];
@@ -161,7 +159,7 @@ describe("Тестирование сервиса Data", function () {
                 });
             });
 
-            it("Проверка get", function (done) {
+            it("Проверка get после set", function (done) {
                 Data.getPromise().then(function () {
                     expect(Data.getSchools({id: 19})[0].name).toEqual("Тестовая разработка");
                     expect(Data.getPlaces({id: 17})[0].name).toEqual("Яндекс 329");
@@ -209,14 +207,15 @@ describe("Тестирование сервиса Data", function () {
                     })).toEqual(false);
                     done();
                 });
-                it("Проверка get после put", function (done) {
-                    Data.getPromise().then(function () {
-                        expect(Data.getSchools({id: 19})[0].name).toEqual("Тестовая разработка 1");
-                        expect(Data.getPlaces({id: 17})[0].name).toEqual("Яндекс 329 1");
-                        expect(Data.getLectors({id: 29})[0].name).toEqual("Кирилл Бережной 1");
-                        expect(Data.getLections()({lection_id: 15}).get()[0].place_id).toEqual(2);
-                        done();
-                    });
+
+            });
+            it("Проверка get после put", function (done) {
+                Data.getPromise().then(function () {
+                    expect(Data.getSchools({id: 19})[0].name).toEqual("Тестовая разработка 1");
+                    expect(Data.getPlaces({id: 17})[0].name).toEqual("Яндекс 329 1");
+                    expect(Data.getLectors({id: 29})[0].name).toEqual("Кирилл Бережной 1");
+                    expect(Data.getLections()({lection_id: 15}).get()[0].place_id).toEqual(2);
+                    done();
                 });
             });
         })
@@ -227,4 +226,3 @@ describe("Тестирование сервиса Data", function () {
         template: '<div></div>',
         controller: testController
     });
-});
