@@ -130,7 +130,7 @@
     .edit-icon.article {
         font-size: 11px;
         background-size: 17px !important;
-        margin-right: 7px;
+        /* margin-right: 7px; */
         padding-left: 25px;
     }
 
@@ -410,7 +410,7 @@
         margin-top: 15px;
     }
     button.replay-button.about, input.replay-button, button.replay-button {
-        font-size: 8px;
+        font-size: 9px;
         padding: 4px 5px 4px 6px !important;
         margin-left: 0;
         float: inherit;

@@ -28,12 +28,12 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
         $scope.Data.lection_schools.forEach(function (p1) {
             $scope.checks[p1-1] = true;
         });
-
+        //преобразуем дату, чтобы можно было подставить в формы
         $scope.Data._time = Date.parseExact(angular.copy($scope.Data.date), 'MM-dd-yyyy HH:mm');
         $scope.Data._duration = Date.parseExact(angular.copy($scope.Data.duration), 'HH:mm');
         $scope.Data._date = $filter('date')(Date.parseExact(angular.copy($scope.Data.date), 'MM-dd-yyyy HH:mm'), 'MM-dd-yyyy');
 
-        //чистим
+        //чистим объект лекции
         if ($state.current.name === 'create_lection' || $stateParams.id > data().get().length) {
             for (var i in $scope.Data) {
                 if ($scope.Data.hasOwnProperty(i)){
@@ -41,7 +41,6 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
                     if (i[0] === "_") delete $scope.Data[i];
                 }
             }
-
             $scope.Data.lection_schools = [];
             $scope.checks = [];
 
@@ -55,6 +54,7 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
 
             $scope.selectedOptionId = $scope.lectors[0];
             $scope.selectedOptionPlace = $scope.places[0];
+
             //параметры, если  переходить с фильтров
             if ($stateParams.date) {
                 $scope.Data._date = $filter('date')($stateParams.date, 'MM-dd-yyyy')

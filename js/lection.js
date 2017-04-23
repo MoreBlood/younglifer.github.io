@@ -73,7 +73,7 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
 
         Data.get.lectionList()(params).each(function (record) {
             var recordStart =  Date.parseExact(record.date, 'MM-dd-yyyy HH:mm');
-            if ((record.lection_schools !== undefined) &&  ((range_e && range_s) ? recordStart.between(range_s, range_e) : true) &&
+            if ((record.lection_schools !== undefined) &&  ((range_e || range_s) ? recordStart.between(range_s, range_e) : true) &&
                 ($scope.hasSchool((Data.getSchools({'url' : $stateParams.name})[0]  ?  Data.getSchools({'url' : $stateParams.name})[0].id : 0),  record.lection_schools) ||
                 $scope.hasSchool(1,  record.lection_schools) ||
                 $stateParams.name === $scope.schools[0].url ||
