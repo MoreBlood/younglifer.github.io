@@ -1,0 +1,33 @@
+<p class="text-h1">{{schoolName}}{{place}} - временной промежуток</p>
+<form name="myForm" ng-submit="Filter()">
+    <div class="input-name-holder">
+        <datepicker date-format="MM-dd-yyyy" datepicker-mobile="true">
+            <input type="text" style="width: 100px" name="date" class="input nr-border"
+                   pattern="^(0[1-9]|1[012])-([123]0|[012][1-9]|31)-(19[0-9]{2}|2[0-9]{3})" ng-model="range_s_d"
+                   placeholder="12-26-2016" required>
+
+        </datepicker>
+        <div class="input name"><p class="name-p">Дата c</p></div>
+
+    </div>
+    <div class="input-name-holder">
+        <input type="time" style="width: 75px" name="time" class="input nr-border" ng-model="range_s_t"
+               placeholder="10:20" required>
+        <div class="input name"><p class="name-p">Время c</p></div>
+    </div>
+    <div class="input-name-holder">
+        <datepicker date-format="MM-dd-yyyy" datepicker-mobile="true">
+            <input type="text" style="width: 100px" name="date" class="input nr-border"
+                   pattern="^(0[1-9]|1[012])-([123]0|[012][1-9]|31)-(19[0-9]{2}|2[0-9]{3})" ng-model="range_e_d"
+                   placeholder="12-26-2016" required>
+        </datepicker>
+        <div class="input name"><p class="name-p">Дата по</p></div>
+
+    </div>
+    <div class="input-name-holder">
+        <input type="time" style="width: 75px" name="time" class="input nr-border" ng-model="range_e_t"
+               placeholder="10:20" required>
+        <div class="input name"><p class="name-p">Время по</p></div>
+    </div>
+    <input type="submit" class="replay-button ab-lec save" value="ПОКАЗАТЬ">
+</form>

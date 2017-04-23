@@ -1,4 +1,4 @@
-<p class="text-h1">Лекции - {{month ? ((date | date:'d') +  ' ' + (month | date:'MMMM yyyy') )  : ""}} {{lector ? (GetLector(lector) ) : "" }}  {{!place ? schoolName : ''}} {{place ? ("аудитория " + GetPlace(place)) : ""}} </p>
+<p class="text-h1">Лекции - {{month ? ((date | date:'d') +  ' ' + (month | date:'MMMM yyyy') )  : ""}} {{lector ? (GetLector(lector) ) : "" }}  {{!place ? schoolName : ''}} {{place ? ("аудитория " + GetPlace(place)) : ""}} <br><small>{{"" + range}}</small> </p>
 <div ng-show="current" class="footer-about counter"><b>{{countOfStudents}}</b> человек</div>
 <div ng-show="place" class="footer-about counter">вместимость <b>{{  + place ?  GetPlaceMax(place) : '' }}</b> человек</div>
 <div class="controls">
@@ -8,6 +8,11 @@
     <div class="edit icon school" ng-show="place" ng-click="$root.go('edit_place', { 'place' : place})">Изменить аудиторию</div>
     <div class="add icon school" ng-show="place" ng-click="$root.go('create_place', {})">Создать аудиторию</div>
 </div>
+<div class="controls second-row">
+<div class="filter icon school" ng-show="current" ng-click="$root.go('filter_sc', {'name' : current})">Интервал</div>
+<div class="filter icon school" ng-show="place" ng-click="$root.go('filter_pl', {'place' : place})">Интервал</div>
+</div>
+
 <div class="lection" ng-repeat="item in Data" >
     <div class="month-separator"   ng-hide = "(toDate(item.date) | date:'MMMM yyyy') === (toDate(Data[$index - 1].date) | date:'MMMM yyyy')">
         <span class="text-h4"   ng-click="$root.go('lections_date_month', { 'name' : current, 'month' : toDate(item.date, 'MM'), 'year' : toDate(item.date, 'yyyy')  })" >{{(toDate(item.date) | date:'MMMM yyyy')}}</span>

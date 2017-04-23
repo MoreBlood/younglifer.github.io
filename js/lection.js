@@ -27,6 +27,8 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
         var lector = $stateParams.lector;
         var place = $stateParams.place;
         var year = $stateParams.year;
+        var range_s = $stateParams.range_s;
+        var range_e = $stateParams.range_e;
 
         if (month && year) {//дописать год!!!!!!!
             if (month.length === 1) month = "0" + month;
@@ -62,10 +64,16 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
             $document[0].title = $scope.GetPlace($scope.place);
         }
 
+        if (range_s && range_e){
+            range_s = Date.parseExact(range_s, 'MM-dd-yyyy HH:mm');
+            range_e = Date.parseExact(range_e, 'MM-dd-yyyy HH:mm');
+            $scope.range =  $filter('capitalize')($filter('date')(range_s, 'MMMM d, yyyy')) + " - " + $filter('date')(range_e, 'MMMM d, yyyy');
+        }
         $scope.Data = [];
 
         Data.get.lectionList()(params).each(function (record) {
-            if ((record.lection_schools !== undefined) &&
+            var recordStart =  Date.parseExact(record.date, 'MM-dd-yyyy HH:mm');
+            if ((record.lection_schools !== undefined) &&  ((range_e && range_s) ? recordStart.between(range_s, range_e) : true) &&
                 ($scope.hasSchool((Data.getSchools({'url' : $stateParams.name})[0]  ?  Data.getSchools({'url' : $stateParams.name})[0].id : 0),  record.lection_schools) ||
                 $scope.hasSchool(1,  record.lection_schools) ||
                 $stateParams.name === $scope.schools[0].url ||

@@ -89,6 +89,9 @@
         padding: 6px 6px 6px 10px;
         height: 17px;
     }
+    input.replay-button, button.replay-button{
+
+    }
 
     .input-name-holder {
         margin-bottom: 8px;
@@ -316,6 +319,9 @@
         margin-top: 70px;
         margin-bottom: 110px;
     }
+    input.replay-button, button.replay-button{
+        
+    }
 
     .youtube-wrap::before {
         text-align: center;
@@ -403,8 +409,7 @@
         margin-left: 15px;
         margin-top: 15px;
     }
-
-    button.replay-button.about {
+    button.replay-button.about, input.replay-button, button.replay-button {
         font-size: 8px;
         padding: 4px 5px 4px 6px !important;
         margin-left: 0;

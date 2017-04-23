@@ -159,7 +159,7 @@ mark {
  * Add the correct font size in all browsers.
  */
 
-small {
+a small {
   font-size: 80%;
   color: hsla(219, 100%, 46%, 0.55);
 }

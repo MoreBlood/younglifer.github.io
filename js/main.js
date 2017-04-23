@@ -342,6 +342,20 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
         }).state('school_lections', {
             url: '/school/:name',
             template: "<lection></lection>"
+        }).state('school_lections_range_name', {
+            url: '/school_range/name/:name/:range_s/:range_e',
+            params: {
+                range_s: null,
+                range_e: null
+            },
+            template: "<lection></lection>"
+        }).state('school_lections_range_place', {
+            url: '/school_range/place/:place/:range_s/:range_e',
+            params: {
+                range_s: null,
+                range_e: null
+            },
+            template: "<lection></lection>"
         }).state('lector_lections', {
             url: '/lector/:lector',
             template: "<lection></lection>"
@@ -381,6 +395,12 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             url: '',
             template: "<lection></lection>",
             redirectTo: 'school_lections'
+        }).state('filter_sc', {
+            url: '/filter/school/:name/',
+            template: "<filterdate></filterdate>"
+        }).state('filter_pl', {
+            url: '/filter/place/:place/',
+            template: "<filterdate></filterdate>"
         }).state('404', {
             url: '/404',
             template: "<notfound></notfound>"

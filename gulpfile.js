@@ -39,7 +39,7 @@ gulp.task('default', ['clean','unite_ng_sc'], function () {
 gulp.task('unite_ng_sc',['clean'], function () {
     return gulp.src(['./js/main.js', './js/modalwindow.js', './js/navbar.js',
         './js/lection.js', './js/lectionabout.js', './js/edit_lection.js',
-        './js/edit_school.js', './js/edit_place.js', './js/404.js',   '!./js/vendor/*.js'])  //unite all scripts except libs
+        './js/edit_school.js', './js/edit_place.js', './js/404.js', './js/filter_date.js',   '!./js/vendor/*.js'])  //unite all scripts except libs
         .pipe(concat('main.js'))
         .pipe(gulp.dest('build/js'));
 });
