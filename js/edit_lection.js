@@ -53,11 +53,11 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
             $document[0].title = 'Создание лекции';
             $scope.saveBtn = true;
 
-
             $scope.selectedOptionId = $scope.lectors[0];
             $scope.selectedOptionPlace = $scope.places[0];
+            //параметры, если  переходить с фильтров
             if ($stateParams.date) {
-                $scope.Data._date = $filter('date')($stateParams.date, 'MM-dd-yyyy')//fix !!!!!!!!!
+                $scope.Data._date = $filter('date')($stateParams.date, 'MM-dd-yyyy')
             }
             if ($stateParams.place) {
                 $scope.selectedOptionPlace = Data.getPlaces({'id': $stateParams.place})[0];
@@ -88,13 +88,11 @@ function EditLectionController($scope, $state, Data, $stateParams, $document, Sw
                     showConfirmButton: true
                 });
             };
-
             if (!$scope.Data.lection_schools.length){
                 type = 4;
                 display_er();
                 return;
             }
-
             if ($state.current.name === 'create_lection'){
                 $scope.Data.lection_id = data().get().length + 1;
 

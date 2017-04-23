@@ -1,4 +1,5 @@
 'use strict';
+
 function LectionAboutController($rootScope, $scope, Data, $state, $stateParams, $sce, $document) {
     Data.getPromise().then(function () {
         var schools = {};

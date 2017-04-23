@@ -1,6 +1,6 @@
 'use strict';
-function EditSchoolController($scope, $state, Data, $stateParams, $document) {
 
+function EditSchoolController($scope, $state, Data, $stateParams, $document) {
     Data.getPromise().then(function () {
         if ($state.current.name === 'edit_school') {
 
@@ -34,10 +34,7 @@ function EditSchoolController($scope, $state, Data, $stateParams, $document) {
 
             $state.go('school_lections', {'name': $scope.schools.url}, {reload: true});
         };
-
-
     });
-
 }
 
 angular.module('timetableapp').component('editschool',

@@ -1,4 +1,5 @@
 'use strict';
+
 function PopUpController($scope, $window, Data) {
 
     var window = angular.element(document.querySelector(".pop-up"));

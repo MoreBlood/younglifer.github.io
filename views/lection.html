@@ -8,7 +8,7 @@
     <div class="edit icon school" ng-show="place" ng-click="$root.go('edit_place', { 'place' : place})">Изменить аудиторию</div>
     <div class="add icon school" ng-show="place" ng-click="$root.go('create_place', {})">Создать аудиторию</div>
 </div>
-<div class="lection" ng-repeat="item in Data track by $index" >
+<div class="lection" ng-repeat="item in Data" >
     <div class="month-separator"   ng-hide = "(toDate(item.date) | date:'MMMM yyyy') === (toDate(Data[$index - 1].date) | date:'MMMM yyyy')">
         <span class="text-h4"   ng-click="$root.go('lections_date_month', { 'name' : current, 'month' : toDate(item.date, 'MM'), 'year' : toDate(item.date, 'yyyy')  })" >{{(toDate(item.date) | date:'MMMM yyyy')}}</span>
     </div>

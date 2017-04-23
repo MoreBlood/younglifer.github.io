@@ -1,15 +1,15 @@
 'use strict';
 
-
 angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', 'colorpicker-dr', 'oitozero.ngSweetAlert'])
     .controller("timeTableController", function ($scope, $rootScope, $state, Data) {
-        Data.setContent(); //init data api and it's promise
+        Data.setContent("_main"); //init data api and it's promise
 
         //анимация загрузки
         $rootScope.$on('$viewContentLoading', function () {
             $('.animate-show-hide').stop().fadeIn("fast");
             $('.pop-up-back').removeClass("visible-modal");
         });
+
         //скрытие загрузки
         $scope.$on('$viewContentLoaded', function () {
             $('.animate-show-hide').stop().fadeOut(300, function () {
@@ -18,6 +18,7 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
                 })
             });
         });
+
         //no params ex www.site.ru/
         $rootScope.$on('$stateChangeStart', function (evt, to) {
             if (to.redirectTo) {
@@ -27,22 +28,30 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
                 });
             }
         });
-        //какая-либо ошибка роутера
+
+        //какая-либо ошибка ui-router
         $rootScope.$on('$stateChangeError', function (event) {
             event.preventDefault();
             $state.go('404');
         });
+
         //функция навигации для вызова из html
         $rootScope.go = function (where, params_obj) {
             $state.go(where, params_obj, {reload: true});
         };
-        // чистим локальное хранилище
+
+        // чистим локальное хранилище с префиксом main
         $scope.ClearCache = function () {
-            localStorage.clear();
+            for (var u in localStorage){
+                if (localStorage.hasOwnProperty(u)){
+                    if (u.split("_")[2] === 'main' && u.split("_")[0] === 'taffy') delete localStorage[u];
+                }
+            }
             window.location.href = '';
 
         };
 
+        //реализация загрузки json файла базы
         function download(filename, text) {
             var pom = document.createElement('a');
             pom.setAttribute('href', 'data:json/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -78,6 +87,7 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
         };
 
     })
+    // реализация БД
     .service('Data', function ($http, $q, $rootScope, $filter) {
 
         var signal = $q.defer();
@@ -87,40 +97,49 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
         var lectorsList;
         var placesList;
 
-        var setContent = function () {
-            return $http.get('data_new.json').then(function (response){
+        var setContent = function (prefix) {
+            return $http.get('./data_new.json').then(function (response){
                     var data = response.data[0];
 
+                    var db_c = 0;
+                    //подсчет записей в локальном хранилище
+                    for (var i in localStorage){
+                        if (localStorage.hasOwnProperty(i)){
+                            if (i.split("_")[2] === prefix.substring(1) && i.split("_")[0] === 'taffy') db_c++;
+                        }
+                    }
 
-
-
-                    if (localStorage.length !== 4) {//так себе проверка на локальное храгилище
+                    if (db_c !== 4) {
                         var benchC = 'Creating Local Storage';
                         console.time(benchC);
-                        localStorage.clear();
-
-                        lectionList = TAFFY(data.lections).store('lectionLS');
-                        schoolsList = TAFFY(data.schools).store('schoolLS');
-                        lectorsList = TAFFY(data.lectors).store('lectorLS');
-                        placesList = TAFFY(data.places).store('placenLS');
+                        //очистка только с префиксом
+                        for (var u in localStorage){
+                            if (localStorage.hasOwnProperty(u)){
+                                if (u.split("_")[2] === prefix.substring(1) && u.split("_")[0] === 'taffy') delete localStorage[u];
+                            }
+                        }
+                        //сохранение в БД
+                        lectionList = TAFFY(data.lections).store('lectionLS' + prefix);
+                        schoolsList = TAFFY(data.schools).store('schoolLS' + prefix);
+                        lectorsList = TAFFY(data.lectors).store('lectorLS'+ prefix );
+                        placesList = TAFFY(data.places).store('placenLS' + prefix);
 
                         console.timeEnd(benchC);
 
                         TotalCount(); //подсчет всех студентов
-
                     }
                     else {
                         var bench = 'Loading from Local Storage';
                         console.time(bench);
-
-                        lectionList = TAFFY().store('lectionLS');
-                        schoolsList = TAFFY().store('schoolLS');
-                        lectorsList = TAFFY().store('lectorLS');
-                        placesList = TAFFY().store('placenLS');
+                        //загрузка обратно в БД, если она существует
+                        lectionList = TAFFY().store('lectionLS' + prefix);
+                        schoolsList = TAFFY().store('schoolLS' + prefix);
+                        lectorsList = TAFFY().store('lectorLS' + prefix);
+                        placesList = TAFFY().store('placenLS' + prefix);
 
                         console.timeEnd(bench);
                     }
-
+                    //устанавливаем promise
                     signal.resolve();
                 },
                 function (response){
@@ -171,8 +190,6 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
          * @return {boolean}
          */
         var CmpPlaces = function (a) {
-
-
             var b = GetSchoolsBasedOnLectionPassedTimeRange(a);
 
             for (var i in b) {
@@ -183,14 +200,13 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
                 }
             }
             return false;
-
         };
 
+        //получение школ, на основе добавляемой/изменяемой и выборка тех, где коллизии по времени
         var GetSchoolsBasedOnLectionPassedTimeRange = function (a) {
-
             var b = [];
-
             var _a = [];
+            //входные данные, добавляемой лекции
             _a.date = $filter('date')(Date.parseExact(a.date, 'MM-dd-yyyy HH:mm'), 'MM-dd-yyyy');
             _a.duration = Date.parseExact(a.duration, 'HH:mm');
             _a.start = Date.parseExact(a.date, 'MM-dd-yyyy HH:mm');
@@ -206,7 +222,6 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             });
 
             return b;
-
         };
 
         /**
@@ -224,7 +239,8 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
         var TotalCount = function () {
             schoolsList({'id': 1}).update({'students_count': get.schoolList()().start(2).sum("students_count")});
         };
-        //гетеры бд
+
+
         var get = [];
 
         get.lectionList = function () {
@@ -239,32 +255,39 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
         get.placesList = function () {
             return placesList;
         };
-        //сетеры бд
+
+
         var set = [];
 
         set.lection = function (newLection) { // check for bad result of insert?
             if (CmpSchools(newLection)) return 1;
             if (CmpPlaces(newLection)) return 2;
             if (CheckAvSeats(newLection)) return 3;
+            if (get.lectionList()({'lection_id': newLection.lection_id}).get()[0]) return 4;
             lectionList.insert(newLection);
             $rootScope.$broadcast('lectionsUpdated', null);
             return false;
         };
         set.school = function (newSchool) {
-            schoolsList.insert(newSchool);
+            if (get.schoolList()({'id': newSchool.id}).get()[0]) return 4;
+            if (!schoolsList.insert(newSchool)) return 5;
             $rootScope.$broadcast('schoolsUpdated', null);
             TotalCount();
+            return false;
         };
         set.lector = function (newLector) {
-            lectorsList.insert(newLector);
+            if (!lectorsList.insert(newLector)) return 5;
             $rootScope.$broadcast('lectorsUpdated', null);
+            return false;
         };
         set.place = function (newPlace) {
-            placesList.insert(newPlace);
+            if (get.placesList()({'id': newPlace.id}).get()[0]) return 4;
+            if (!placesList.insert(newPlace)) return 5;
             $rootScope.$broadcast('placesUpdated', null);
+            return false;
         };
 
-        //изменение бд
+
         var put = [];
 
         put.lection = function (id, newLection) {
@@ -276,17 +299,20 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             return false;
         };
         put.school = function (id, newSchool) {
-            schoolsList({'id': id}).update(newSchool);
+            if (!schoolsList({'id': id}).update(newSchool)) return 5;
             $rootScope.$broadcast('schoolsUpdated', newSchool.id);
             TotalCount();
+            return false;
         };
         put.lector = function (id, newLector) {
-            lectorsList({'id': id}).update(newLector);
+            if (!lectorsList({'id': id}).update(newLector)) return 5;
             $rootScope.$broadcast('lectorsUpdated', newLector.id);
+            return false;
         };
         put.place = function (id, newPlace) {
-            placesList({'id': id}).update(newPlace);
+            if (!placesList({'id': id}).update(newPlace)) return 5;
             $rootScope.$broadcast('placesUpdated', newPlace.id);
+            return false;
         };
 
         return {
@@ -300,7 +326,6 @@ angular.module("timetableapp", ['ngSanitize', 'ui.router', '720kb.datepicker', '
             set: set,
             put: put
         }
-
     })
     .config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
         //любой адрес, если не соответсвует state редирект на стрницу с ошибкой

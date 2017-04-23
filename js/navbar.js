@@ -1,4 +1,5 @@
 'use strict';
+
 function NavBarController($scope, $state, Data) {
     $scope.current = $state.params.name;
 

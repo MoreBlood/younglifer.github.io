@@ -1,4 +1,5 @@
 'use strict';
+
 function LectionController($rootScope, $scope, $state, Data, $stateParams, $filter, $document) {
     $scope.current = $stateParams.name;
     Data.getPromise().then(function () {
@@ -69,10 +70,9 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
                 $scope.hasSchool(1,  record.lection_schools) ||
                 $stateParams.name === $scope.schools[0].url ||
                 $stateParams.name === undefined)) {
-                $scope.Data.push(record);// track by in ng repeat should fix it
+                $scope.Data.push(record);
             }
         });
-
         $scope.Data.sort(function (a, b) {
             return  $scope.toDate(a.date) -  $scope.toDate(b.date);
         });
@@ -81,22 +81,17 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
     $scope.hasSchool = function (sc, list) {
        return list.indexOf(sc) !== -1;
     };
-
     $scope.toDate = function (date, type) {
-
         var format = "MM-dd-yyyy HH:mm";
         if (type) return $filter('date')(Date.parseExact(date, format), type);
         return Date.parseExact(date, format);
     };
-
     $scope.ShowLector = function ($event, element) {
         $rootScope.$broadcast('showLector', $event, element);
     };
-
     $scope.GetLector = function (id) {
         return Data.getLectors({'id': id})[0].name.toString();
     };
-
     $scope.GetPlace = function (id) {
         return Data.getPlaces({'id': id})[0].name.toString();
     };
@@ -105,7 +100,6 @@ function LectionController($rootScope, $scope, $state, Data, $stateParams, $filt
         var date = angular.copy(Date.parse(st));
         return date.add({hours : duration.getHours(), minutes: duration.getMinutes()});
     };
-
     /**
      * @return {string}
      */

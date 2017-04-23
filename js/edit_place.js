@@ -1,4 +1,5 @@
 'use strict';
+
 function EditPlaceController($scope, $state, Data, $stateParams, $document)
 {
     Data.getPromise().then(function () {
